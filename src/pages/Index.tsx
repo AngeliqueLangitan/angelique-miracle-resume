@@ -8,39 +8,9 @@ import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
 import Certificates from '@/components/Certificates';
 import Contact from '@/components/Contact';
-import AdminPanel from '@/components/AdminPanel';
-import { useFirebaseCV } from '@/hooks/useFirebaseCV';
+import { cvData } from '@/data/cvData';
 
 const Index = () => {
-  const { cvData, loading, error } = useFirebaseCV();
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-purple-600 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-600">Loading CV data...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-lg text-red-600 mb-4">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen">
       <Header personalInfo={cvData.personalInfo} />
@@ -59,9 +29,6 @@ const Index = () => {
         instagram: cvData.personalInfo.instagram,
         twitter: cvData.personalInfo.twitter
       }} />
-      
-      {/* Admin Panel for development - remove in production */}
-      <AdminPanel />
     </div>
   );
 };
